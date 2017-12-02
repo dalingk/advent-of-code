@@ -17,6 +17,12 @@ def main():
         if digit == input_list[next_idx % len(input_list)]:
             total += digit
     print(total)
+    total_part_2 = 0
+    for idx, digit in enumerate(input_list):
+        next_idx = idx + (len(input_list) // 2)
+        if digit == input_list[next_idx % len(input_list)]:
+            total_part_2 += digit
+    print(total_part_2)
 
 
 if __name__ == '__main__':
