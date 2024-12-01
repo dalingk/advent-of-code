@@ -1,5 +1,6 @@
 import argparse
 import pathlib
+from collections import defaultdict
 
 LocationIdList = list[int]
 
@@ -38,11 +39,29 @@ def total_distance(list1: LocationIdList, list2: LocationIdList) -> int:
     return distance
 
 
+def count_list_items(the_list: LocationIdList) -> dict[int]:
+    """Count the number of occurrences of each item in the list."""
+    list_counts = defaultdict(int)
+    for item in the_list:
+        list_counts[item] += 1
+    return list_counts
+
+
+def similarity_score(list1: LocationIdList, list2: LocationIdList) -> int:
+    """Given 2 lists, compute the similarity score between them."""
+    similarity = 0
+    list2_counts = count_list_items(list2)
+    for item in list1:
+        similarity += item * list2_counts.get(item, 0)
+    return similarity
+
+
 def main():
     parser = get_parser()
     args = parser.parse_args()
     list1, list2 = load_file(args.filename)
     print(f"Total Distance: {total_distance(list1, list2)}")
+    print(f"Similarity: {similarity_score(list1, list2)}")
 
 
 if __name__ == "__main__":
