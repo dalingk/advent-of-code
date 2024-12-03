@@ -3,7 +3,7 @@ import pathlib
 import re
 
 MUL_RE = re.compile(r"mul\((\d{1,3}),(\d{1,3})\)")
-ENABLE_MUL_RE = re.compile(r"(?:do\(\)|don't\(\))|mul\((\d{1,3}),(\d{1,3})\)")
+ENABLE_MUL_RE = re.compile(r"((?:do|don't)\(\))|(mul)\((\d{1,3}),(\d{1,3})\)")
 
 
 def get_parser() -> argparse.ArgumentParser:
@@ -31,12 +31,12 @@ def get_mult_enable_groups(the_input: str) -> list[tuple[int, int]]:
     commands = []
     enabled = True
     for match in ENABLE_MUL_RE.finditer(the_input):
-        if match.group(0) == "do()":
+        if match.group(1) == "do()":
             enabled = True
-        elif match.group(0) == "don't()":
+        elif match.group(1) == "don't()":
             enabled = False
-        if enabled and match.group(0).startswith("mul"):
-            commands.append((int(match.group(1)), int(match.group(2))))
+        if enabled and match.group(2) == "mul":
+            commands.append((int(match.group(3)), int(match.group(4))))
     return commands
 
 
