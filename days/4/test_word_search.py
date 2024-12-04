@@ -20,4 +20,3 @@ def test_count_matches(generate_grid):
     assert count_xmas_matches(generate_grid) == 1
     generate_grid[3][3] = "."
     assert count_xmas_matches(generate_grid) == 0
-
