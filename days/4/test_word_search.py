@@ -1,5 +1,6 @@
 import pytest
 
+from word_search import count_crossed_mas
 from word_search import count_xmas_matches
 from word_search import DIRECTIONS
 from word_search import LETTERS
@@ -20,3 +21,11 @@ def test_count_matches(generate_grid):
     assert count_xmas_matches(generate_grid) == 1
     generate_grid[3][3] = "."
     assert count_xmas_matches(generate_grid) == 0
+
+
+def test_count_crossed_mas():
+    """Lame attempt at a unit test."""
+    grid = [["M", ".", "S"], [".", "A", "."], ["M", ".", "S"]]
+    assert count_crossed_mas(grid) == 1
+    grid[1][1] = "."
+    assert count_crossed_mas(grid) == 0

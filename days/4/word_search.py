@@ -44,6 +44,30 @@ def count_xmas_matches(puzzle: Puzzle) -> int:
     return match_count
 
 
+def count_crossed_mas(puzzle: Puzzle) -> int:
+    """Count the number of crossed 'mas' in the puzzle."""
+    letters = "MAS"
+    directions = [(-1, -1), (-1, 1), (1, 1), (1, -1), (-1, -1)]
+
+    match_count = 0
+    for i, puzzle_row in enumerate(puzzle):
+        for j, puzzle_entry in enumerate(puzzle_row):
+            if (
+                puzzle_entry != "A"
+                or i < 1
+                or i >= len(puzzle) - 1
+                or j < 1
+                or j >= len(puzzle_row) - 1
+            ):
+                continue
+            corners = "".join(
+                puzzle[i + offset_i][j + offset_j] for offset_i, offset_j in directions
+            )
+            if "MM" in corners and "SS" in corners:
+                match_count += 1
+    return match_count
+
+
 def load_file(file_path: pathlib.Path) -> Puzzle:
     lines = []
     with open(file_path, "r") as input_file:
@@ -58,6 +82,7 @@ def main():
     puzzle = load_file(args.filename)
 
     print(f"{count_xmas_matches(puzzle)} matches for XMAS")
+    print(f"{count_crossed_mas(puzzle)} crossed MAS matches")
 
 
 if __name__ == "__main__":
