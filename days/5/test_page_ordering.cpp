@@ -26,3 +26,23 @@ TEST(day5, invalid_page_update)
     PageUpdate invalid_update = { 100, 1, 2, 10 };
     EXPECT_FALSE(is_valid_page_update(invalid_update, orderings));
 }
+
+TEST(day5, correct_update)
+{
+    PageOrderings example_orderings = {
+        { 97, { 13, 47, 29, 75 } }, { 75, { 29, 47, 13 } }, { 29, { 13 } }, { 47, { 13, 29 } }
+    };
+    PageUpdate to_correct = { 97, 13, 75, 29, 47 };
+    PageUpdate is_correct = { 97, 75, 47, 29, 13 };
+
+    EXPECT_EQ(correct_update(to_correct, example_orderings), is_correct);
+}
+
+TEST(day5, correct_update_complex)
+{
+    PageOrderings example_orderings = { { 6, { 7 } }, { 7, { 8 } }, { 8, { 9 } }, { 9, { 10 } } };
+    PageUpdate to_correct = { 10, 9, 8, 7, 6 };
+    PageUpdate is_correct = { 6, 7, 8, 9, 10 };
+
+    EXPECT_EQ(correct_update(to_correct, example_orderings), is_correct);
+}

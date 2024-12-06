@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iterator>
 #include <sstream>
 
 #include "page_ordering.h"
@@ -48,4 +49,29 @@ is_valid_page_update(const PageUpdate& update, const PageOrderings& orderings)
         }
     }
     return true;
+}
+
+PageUpdate
+correct_update(const PageUpdate& update, const PageOrderings& orderings)
+{
+    PageUpdate corrected = update;
+    for (auto update_iterator = corrected.begin(); update_iterator != corrected.end(); ++update_iterator) {
+        if (orderings.count(*update_iterator) == 0) {
+            continue;
+        }
+        auto before_rules = orderings.find(*update_iterator)->second;
+        PageUpdate::iterator target = update_iterator;
+        // Inefficient but I have a lot of computer under this desk.
+        for (auto order_iterator = update_iterator - 1; order_iterator >= corrected.begin(); --order_iterator) {
+            if (before_rules.count(*order_iterator) > 0) {
+                target = order_iterator;
+            }
+        }
+        for (auto swap_iterator = target; swap_iterator < update_iterator; ++swap_iterator) {
+            int save = *swap_iterator;
+            *swap_iterator = *update_iterator;
+            *update_iterator = save;
+        }
+    }
+    return corrected;
 }

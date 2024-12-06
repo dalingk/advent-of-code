@@ -1,4 +1,4 @@
-name: CMake to build and test C++
+name: Test C++ with CMake
 
 on:
   push:
