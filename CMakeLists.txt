@@ -15,4 +15,4 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_subdirectory(./cpptesting)
+add_subdirectory(./days/5)
