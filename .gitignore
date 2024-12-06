@@ -1,2 +1,3 @@
 days/*/resources
 __pycache__
+build
