@@ -54,6 +54,8 @@ def is_valid_equation(
         return True
     elif is_valid_equation(test_value, next, accumulated=left + right):
         return True
+    elif is_valid_equation(test_value, next, accumulated=int(str(left) + str(right))):
+        return True
     return False
 
 
