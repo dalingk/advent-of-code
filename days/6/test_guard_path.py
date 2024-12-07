@@ -23,8 +23,9 @@ def test_get_starting_location():
     room = [".....", "..^..", "......"]
     assert get_starting_location(room) == (1, 2)
 
+
 @pytest.mark.skip("broken")
 def test_trace_guard_path():
     obstructions = trace_guard_path(SAMPLE_MAP)
     assert SAMPLE_MAP[9][7] == "|"
-    assert obstructions == {(6,3), (7,6), (8,3), (9,7), (8,1), (7,7)}
+    assert obstructions == {(6, 3), (7, 6), (8, 3), (9, 7), (8, 1), (7, 7)}
